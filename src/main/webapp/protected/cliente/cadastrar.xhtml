@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/WEB-INF/template/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="cliente.css" />
+    </ui:define>
+
+    <ui:define name="titulo">Cliente</ui:define>
+
+    <ui:define name="conteudo">
+        <h2>Cadastrar Cliente</h2>
+
+        <div class="grid-cadastro-cliente">
+            <h:form id="formCadastroCliente" styleClass="formCliente">
+                <div class="p-grid ui-fluid">
+                    <div class="p-col-8">
+                        <p:selectOneRadio value="#{cadastroClienteWebBean.clienteDTO.pessoaFisica}"
+                                          disabled="#{cadastroClienteWebBean.isClienteSalvo()}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Pessoa Física" itemValue="true"/>
+                            <f:selectItem itemLabel="Pessoa Jurídica" itemValue="false"/>
+                            <p:ajax process="@this" global="false"
+                                    update="cnpj, cpf" event="change"
+                                    listener="#{cadastroClienteWebBean.limparCampos()}"/>
+                        </p:selectOneRadio>
+                    </div>
+
+                    <div class="p-col-10">
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" maxlength="255" value="#{cadastroClienteWebBean.clienteDTO.nome}"/>
+                    </div>
+
+                    <div class="p-col-7">
+                        <p:outputLabel for="cnpj" value="CNPJ"/>
+                        <p:inputMask id="cnpj" maxlength="255"
+                                     value="#{cadastroClienteWebBean.clienteDTO.cnpj}"
+                                     mask="99.999.999/9999-99"
+                                     disabled="#{cadastroClienteWebBean.clienteDTO.pessoaFisica || cadastroClienteWebBean.isClienteSalvo()}"/>
+                    </div>
+
+                    <div class="p-col-7">
+                        <p:outputLabel for="cpf" value="CPF"/>
+                        <p:inputMask id="cpf" maxlength="255"
+                                     value="#{cadastroClienteWebBean.clienteDTO.cpf}"
+                                     mask="999.999.999-99"
+                                     disabled="#{!cadastroClienteWebBean.clienteDTO.pessoaFisica || cadastroClienteWebBean.isClienteSalvo()}"/>
+                    </div>
+
+                    <div class="p-col-8">
+                        <p:outputLabel for="email" value="Email"/>
+                        <p:inputText id="email" maxlength="255"
+                                     placeholder="exemplo@dominio.br"
+                                     value="#{cadastroClienteWebBean.clienteDTO.email}" />
+                    </div>
+
+                    <div class="p-offset-9 p-col-3">
+                        <p:commandButton value="Cadastrar" styleClass="botaoCadastrar"
+                                         action="#{cadastroClienteWebBean.salvar()}" />
+                    </div>
+                </div>
+            </h:form>
+
+        </div>
+    </ui:define>
+</ui:composition>

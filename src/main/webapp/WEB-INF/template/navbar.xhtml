@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <aside>
+        <div class="logo">
+            <p:link href="/protected/inicial.xhtml">
+                <img src="../../resources/images/logo.png" alt="LabLink"/>
+            </p:link>
+        </div>
+        <nav>
+            <div class="item-menu">
+                <p:link value="Cadastrar Cliente" href="/protected/cliente/cadastrar.xhtml"/>
+            </div>
+
+            <div class="item-menu">
+                <p:link value="Consultar Cliente" href="/protected/cliente/consultar-cliente.xhtml"/>
+            </div>
+
+            <div class="item-menu">
+                <p:link value="Cadastrar Ordem de Pedido"
+                        href="/protected/manutencao.xhtml"/>
+            </div>
+
+            <div class="item-menu">
+                <p:link value="Consultar Ordem de Pedido"
+                        href="/protected/manutencao.xhtml"/>
+            </div>
+
+            <div class="item-menu">
+                <p:link value="Consultar Coletas"
+                        href="/protected/manutencao.xhtml"/>
+            </div>
+
+            <div class="item-menu">
+                <h:form>
+                    <p:commandLink styleClass="botaoLogout">
+                        <i class="pi pi-power-off" aria-hidden="true"/>
+                        <h:outputText value="Logout"/>
+                        <p:ajax process="@this" listener="#{loginBean.logout()}"/>
+                    </p:commandLink>
+                </h:form>
+            </div>
+        </nav>
+    </aside>
+</ui:composition>

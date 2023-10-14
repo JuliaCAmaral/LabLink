@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/WEB-INF/template/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="cliente.css" />
+    </ui:define>
+
+    <ui:define name="titulo">Cliente</ui:define>
+
+    <ui:define name="conteudo">
+        <h2>Consultar Cliente</h2>
+
+        <div class="grid-cadastro-cliente">
+            <h:form id="formConsultaCliente" styleClass="formCliente">
+                <div class="p-grid ui-fluid">
+
+                    <div class="p-col-10">
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{consultarClienteWebBean.filtroDTO.nome}">
+                            <p:ajax process="@this" global="false"/>
+                        </p:inputText>
+                    </div>
+
+                    <div class="p-col-7">
+                        <p:outputLabel for="documento" value="Documento"/>
+                        <p:inputText id="documento" value="#{consultarClienteWebBean.filtroDTO.documento}">
+                            <p:ajax process="@this" global="false"/>
+                        </p:inputText>
+                    </div>
+
+                    <div class="p-offset-9 p-col-3">
+                        <p:commandButton value="Buscar" styleClass="botaoCadastrar"
+                                         action="#{consultarClienteWebBean.buscar()}"
+                                         process="@form"
+                                         update="formConsultaCliente">
+                        </p:commandButton>
+                    </div>
+
+                    <p:dataTable id="tb-clientes" value="#{consultarClienteWebBean.clientes}" styleClass="tabelaClientes"
+                                 var="cliente" emptyMessage="Sem registros" allowUnsorting="true" sortMode="single">
+
+                        <p:column sortBy="#{cliente.nome}" headerText="Nome">
+                            <h:outputText value="#{cliente.nome}" />
+                        </p:column>
+
+                        <p:column sortBy="#{cliente.tipo}" headerText="Pessoa">
+                            <h:outputText value="#{cliente.tipo}" />
+                        </p:column>
+
+                        <p:column sortBy="#{cliente.documento}" headerText="Documento">
+                            <h:outputText value="#{cliente.documento}" />
+                        </p:column>
+
+                        <p:column>
+                            <p:link title="Editar" href="cadastrar.xhtml?idCliente=#{cliente.idCliente}">
+                                <em class="pi pi-pencil"/>
+                            </p:link>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+        </div>
+    </ui:define>
+</ui:composition>

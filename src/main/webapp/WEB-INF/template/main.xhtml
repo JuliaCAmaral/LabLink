@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <main>
+        <header><h1><ui:insert name="titulo"/></h1></header>
+
+        <div class="conteudo">
+            <p:messages id="messages" showDetail="true" closable="true" showSummary="false" showIcon="false">
+                <p:autoUpdate/>
+            </p:messages>
+
+
+            <ui:insert name="conteudo">Sem conteúdo</ui:insert>
+        </div>
+    </main>
+</ui:composition>
