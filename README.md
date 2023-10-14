@@ -1,4 +1,4 @@
-# LabLink
+# Projeto LabLink
 Aplicação referente ao projeto integrado da pós graduação em engenharia de software pela PUC Minas.
 
 A aplicação tem como objetivo gerenciar os laudos gerados pelo laboratório de higiene ocupacinal. 
@@ -12,16 +12,53 @@ Este gerenciamento engloba:
 - Cadastro de resultado da análise da amostra;
 - Geração e impressão de laudos;
 
-## Usuário de acesso da aplicação
+## Requisitos para executar o projeto:
+- Docker e docker-compose
+- Java 11
+- Wildfly 26.1.0: https://www.wildfly.org/downloads/
+- PostgreSQL JDBC Driver
+
+## Executando o projeto
+1. Clone o projeto na pasta de sua preferência
+2. Abra o arquivo standalone.xml na pasta do seu Wildfly no caminho 
+   ``pastaWildfly/standalone/configuration/standalone.xml``;
+3. Para que seja configurado o banco de dados, adicione em **datasources** o seguinte trecho: 
+
+``` 
+<datasources>
+    <datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS">
+        <connection-url>jdbc:postgresql://localhost:5432/postgres</connection-url>
+        <driver>postgresql</driver>
+        <security>
+            <user-name>postgres</user-name>
+            <password>postgres</password>
+        </security>
+    </datasource>
+    
+    <drivers>
+        <driver name="postgresql" module="org.postgresql">
+            <driver-class>org.postgresql.Driver</driver-class>
+        </driver>
+    </drivers>
+</datasources>
+```
+
+4. Execute o comando no terminal, na raiz do projeto: `` docker-compose up -d ``
+5. Acesse o endereço ``http://localhost:8080/``
+
+### Tecnologias utilizadas:
+
+- **JSF e Primefaces -** Para criação de componentes do projeto;
+- **JPA e Hibernate -** Responsável pela organização e as transações realizadas no banco de dados;
+- **Apache Shiro -** Utilizado para gerenciamento de segurança;
+- **PostgresSQL -** Banco de dados utilizado na aplicação;
+- **Java -** Linguagem de programação utilizada na elaboração do projeto;
+- **JBoss/Wildfly -** Servidor para rodar aplicação;
+- **Docker -** Container para rodar banco de dados;
+
+### Logins para teste de funcionalidades:
 - email: vendedor@lab.com
 - senha: teste
-
-
-## Como executar localmente
-- Baixar o [docker](https://docs.docker.com/desktop/install/windows-install/) de acordo com seu sistema operacional.
-- Baixar o servidor [WildFly 26.0.1.Final](https://drive.google.com/drive/folders/1YCL_Y7bI_oLNmMzvrwGZJyEMFgpdHkS2?usp=drive_link).
-
-Após configurar o wildfly e executar o docker, subir a aplicação.
 
 ### Configurando o WildFly na IntelliJ IDEA
 1. Editar configurações.
@@ -36,5 +73,3 @@ Após configurar o wildfly e executar o docker, subir a aplicação.
    ![config_passo_6](https://github.com/JuliaCAmaral/LabLink/assets/94651831/36cc4632-bf45-4826-a7ab-54287c428d24)
 OBS: Caso ocorra algum erro nas dependencias, realizar o maven clean/install
    ![config_passo_7](https://github.com/JuliaCAmaral/LabLink/assets/94651831/a9059dfa-e192-41c9-824b-84f25895db57)
-
-
