@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xml:lang="en"
       lang="en">
 
@@ -12,38 +13,33 @@
     <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.0/primeflex.css"/>
 </h:head>
 
-<h:body style="width: 100%; margin: 0; padding: 50px">
+<h:body style="position: relative; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; flex-direction: column">
+    <p:graphicImage styleClass="logo" name="images/logo.png" />
 
-    <p:messages id="messages" showDetail="true" closable="true">
+    <p:messages style="width: 95%" id="messages" showDetail="true" showIcon="false" showSummary="false" closable="true">
         <p:autoUpdate/>
     </p:messages>
 
-    <h:form styleClass="flex text-center" style="justify-content: center; align-items: center">
-        <div class="card">
-            <div class="field">
+    <h:form styleClass="flex text-center" style="margin-top: 80px">
 
-                <h:outputLabel for="email">E-mail:</h:outputLabel>
-                <h:inputText id="email"
-                             value="#{loginBean.login.email}"
-                             styleClass="inputfield ml-1"
-                             required="true">
-                </h:inputText>
-            </div>
+        <h:panelGrid styleClass="panelGrid" columns="2" cellpadding="5">
+            <p:outputLabel for="email" styleClass="mb-4">E-mail:</p:outputLabel>
+            <p:inputText id="email"
+                         value="#{loginBean.login.email}"
+                         styleClass="form-control mb-4">
+            </p:inputText>
+            <p:outputLabel for="senha">Senha:</p:outputLabel>
+            <p:password    id="senha"
+                           value="#{loginBean.login.senha}"
+                           styleClass="form-control"/>
 
-            <div class="field">
-                <h:outputLabel for="senha">Senha:</h:outputLabel>
-                <h:inputSecret id="senha"
-                               value="#{loginBean.login.senha}"
-                               styleClass="inputfield ml-1"
-                               required="true"/>
-            </div>
-
-            <div class="field">
+            <f:facet name="footer" >
                 <h:commandButton id="entrar"
                                  value="ENTRAR"
+                                 styleClass="btn btn-success mt-4"
                                  action="#{loginBean.entrar()}"/>
-            </div>
-        </div>
+            </f:facet>
+        </h:panelGrid>
     </h:form>
 </h:body>
 </html>
